@@ -1,5 +1,5 @@
 # Window Settings
-window-title Toontown
+window-title Toontown SomethingRandomLand
 icon-filename phase_3/models/gui/toontown.ico
 cursor-filename phase_3/models/gui/toonmono.cur
 
@@ -12,12 +12,13 @@ aux-display tinydisplay
 depth-bits 24
 audio-sfx-active #t
 audio-music-active #t
-aspect-ratio 1.333333
+aspect-ratio 1.3333
 
 # Models/Resources
 model-path resources
 default-model-extension .bam
 vfs-case-sensitive 0
+show-frame-rate-meter 1
 
 # Server Settings
 server-version sv1.0.47.38
