@@ -1409,6 +1409,7 @@ class Toon(Avatar.Avatar, ToonHead):
         pass
 
     def enterNeutral(self, animMultiplier = 1, ts = 0, callback = None, extraArgs = []):
+        self.setBlend(frameBlend=True)
         anim = 'neutral'
         self.pose(anim, int(self.getNumFrames(anim) * self.randGen.random()))
         self.loop(anim, restart=0)
