@@ -428,8 +428,6 @@ class DisplaySettingsDialog(DirectFrame, StateData.StateData):
                 return 0
             self.notify.info('OPEN MAIN WINDOW PASSED')
             base.disableShowbaseMouse()
-            NametagGlobals.setCamera(base.cam)
-            NametagGlobals.setMouseWatcher(base.mouseWatcherNode)
             base.graphicsEngine.renderFrame()
             base.graphicsEngine.renderFrame()
             base.graphicsEngine.openWindows()
