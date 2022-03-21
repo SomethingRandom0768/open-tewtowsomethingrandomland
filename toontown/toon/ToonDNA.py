@@ -14,7 +14,9 @@ toonSpeciesTypes = ['d',
  'f',
  'p',
  'b',
- 's']
+ 's',
+ 'cr',
+ 'de']
 toonHeadTypes = ['dls',
  'dss',
  'dsl',
@@ -48,12 +50,20 @@ toonHeadTypes = ['dls',
  'sls',
  'sss',
  'ssl',
- 'sll']
+ 'sll',
+ 'crss',
+ 'crsl',
+ 'crls',
+ 'crll',
+ 'dess',
+ 'desl',
+ 'dels',
+ 'dell']
 
 def getHeadList(species):
     headList = []
     for head in toonHeadTypes:
-        if head[0] == species:
+        if head[0] == species or (  str(head[0]) + str(head[1]) ) == species:
             headList.append(head)
 
     return headList
@@ -61,13 +71,13 @@ def getHeadList(species):
 
 def getHeadStartIndex(species):
     for head in toonHeadTypes:
-        if head[0] == species:
+        if head[0] == species or (  str(head[0]) + str(head[1]) ) == species:
             return toonHeadTypes.index(head)
 
 
 def getSpecies(head):
     for species in toonSpeciesTypes:
-        if species == head[0]:
+        if species == head[0] or (  str(head[0]) + str(head[1]) ) == species:
             return species
 
 
@@ -91,6 +101,10 @@ def getSpeciesName(head):
         speciesName = 'bear'
     elif species == 's':
         speciesName = 'pig'
+    elif species == 'cr':
+        speciesName = 'crocodile'
+    elif species == 'de':
+        speciesName = 'deer'
     return speciesName
 
 
@@ -1902,33 +1916,49 @@ def getAllBottoms(gender, output = 'both'):
     return bottoms
 
 
-allColorsList = [VBase4(1.0, 1.0, 1.0, 1.0),
- VBase4(0.96875, 0.691406, 0.699219, 1.0),
- VBase4(0.933594, 0.265625, 0.28125, 1.0),
- VBase4(0.863281, 0.40625, 0.417969, 1.0),
- VBase4(0.710938, 0.234375, 0.4375, 1.0),
- VBase4(0.570312, 0.449219, 0.164062, 1.0),
- VBase4(0.640625, 0.355469, 0.269531, 1.0),
- VBase4(0.996094, 0.695312, 0.511719, 1.0),
- VBase4(0.832031, 0.5, 0.296875, 1.0),
- VBase4(0.992188, 0.480469, 0.167969, 1.0),
- VBase4(0.996094, 0.898438, 0.320312, 1.0),
- VBase4(0.996094, 0.957031, 0.597656, 1.0),
- VBase4(0.855469, 0.933594, 0.492188, 1.0),
- VBase4(0.550781, 0.824219, 0.324219, 1.0),
- VBase4(0.242188, 0.742188, 0.515625, 1.0),
- VBase4(0.304688, 0.96875, 0.402344, 1.0),
- VBase4(0.433594, 0.90625, 0.835938, 1.0),
- VBase4(0.347656, 0.820312, 0.953125, 1.0),
- VBase4(0.191406, 0.5625, 0.773438, 1.0),
- VBase4(0.558594, 0.589844, 0.875, 1.0),
- VBase4(0.285156, 0.328125, 0.726562, 1.0),
- VBase4(0.460938, 0.378906, 0.824219, 1.0),
- VBase4(0.546875, 0.28125, 0.75, 1.0),
- VBase4(0.726562, 0.472656, 0.859375, 1.0),
- VBase4(0.898438, 0.617188, 0.90625, 1.0),
- VBase4(0.7, 0.7, 0.8, 1.0),
- VBase4(0.3, 0.3, 0.35, 1.0)]
+allColorsList = [ VBase4(1, 1, 1, 1), # White 
+ VBase4(0.964706, 0.74902, 0.34902, 1), # Amber 
+ VBase4(0.980392, 0.537255, 0.396078, 1), # Apricot 
+ VBase4(0.347656, 0.820312, 0.953125, 1), # Aqua
+ VBase4(0.8, 0.752941, 0.611765, 1), # Beige
+ VBase4(0.3, 0.3, 0.35, 1), # Black
+ VBase4(0.191406, 0.5625, 0.773438, 1), # Blue
+ VBase4(0.933594, 0.265625, 0.28125, 1), # Bright Red
+ VBase4(0.640625, 0.355469, 0.269531, 1), # Brown
+ VBase4(0.996078, 0.352941, 0.443137, 1), # Bubblegum
+ VBase4(0.227451, 0.556863, 0.968627, 1), # Cartoonival Blue
+ VBase4(0.933333, 0.364706, 0.815686, 1), # Cartoonival Pink
+ VBase4(0.855469, 0.933594, 0.492188, 1), # Citrine
+ VBase4(0.832031, 0.5, 0.296875, 1), # Coral
+ VBase4(0.996094, 0.957031, 0.597656, 1), # Cream
+ VBase4(0.654902, 0.176471, 0.258824, 1), # Crimson
+ VBase4(0.0392157, 0.862745, 0.654902, 1), # Emerald
+ VBase4(0.411765, 0.643137, 0.282353, 1), # Forest Green
+ VBase4(0.7, 0.7, 0.8, 1), # Gray
+ VBase4(0.304688, 0.96875, 0.402344, 1), # Green
+ VBase4(0.733333, 0.866667, 0.94902, 1), # Ice Blue
+ VBase4(0.726562, 0.472656, 0.859375, 1), # Lavender
+ VBase4(0.550781, 0.824219, 0.324219, 1), # Lime Green
+ VBase4(0.433594, 0.90625, 0.835938, 1), # Light Blue
+ VBase4(0.710938, 0.234375, 0.4375, 1), # Maroon
+ VBase4(0.639216, 0.854902, 0.670588, 1), # Mint Green
+ VBase4(0.992188, 0.480469, 0.167969, 1), # Orange
+ VBase4(0.96875, 0.691406, 0.699219, 1), # Peach
+ VBase4(0.558594, 0.589844, 0.875, 1), # Periwinkle
+ VBase4(0.898438, 0.617188, 0.90625, 1), # Pink
+ VBase4(0.546875, 0.28125, 0.75, 1), # Purple
+ VBase4(0.863281, 0.40625, 0.417969, 1), # Red
+ VBase4(0.882353, 0.435294, 0.690196, 1), # Rose Pink
+ VBase4(0.285156, 0.328125, 0.726562, 1), # Royal Blue
+ VBase4(0.242188, 0.742188, 0.515625, 1), # Sea Green
+ VBase4(0.570312, 0.449219, 0.164062, 1), # Sienna
+ VBase4(0.460938, 0.378906, 0.824219, 1), # Slate Blue
+ VBase4(0.352941, 0.231373, 0.513726, 1), # Spooky Purple
+ VBase4(0.32549, 0.403922, 0.6, 1), # Steel Blue
+ VBase4(0.996094, 0.695312, 0.511719, 1), # Tan
+ VBase4(0.196078, 0.721569, 0.709804, 1), # Teal
+ VBase4(0.996094, 0.898438, 0.320312, 1), # Yellow
+ ]
 defaultBoyColorList = [1,
  2,
  3,
