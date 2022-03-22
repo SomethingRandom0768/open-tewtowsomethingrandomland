@@ -279,6 +279,17 @@ class MaxToon(MagicWord):
 
         return f"Successfully maxed {toon.getName()}!"
 
+class returnDNA(MagicWord):
+    aliases = ['dna']
+    desc = "Returns the DNA string of your toon."
+    execLocation = MagicWordConfig.EXEC_LOC_SERVER
+    accessLevel = 'ADMIN'
+
+    def handleWord(self, invoker, avId, toon, *args):
+        print(f"Toon DNA: {toon.getStyle()} ")
+        print(f"Toon DNA String: {toon.getDNAString()} ")
+        return "Toon's DNA has been returned"
+
 # Instantiate all classes defined here to register them.
 # A bit hacky, but better than the old system
 for item in list(globals().values()):
