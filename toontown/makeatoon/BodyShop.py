@@ -371,5 +371,9 @@ class BodyShop(StateData.StateData):
         elif species == 's':
             self.speciesFrame['text'] = TTLocalizer.AnimalToSpecies['pig']
             self.memberButton.hide()
+        elif species == 'cr':
+            self.speciesFrame['text'] = TTLocalizer.AnimalToSpecies['crocodile']
+        elif species == 'de':
+            self.speciesFrame['text'] = TTLocalizer.AnimalToSpecies['deer']
         if base.cr.isPaid():
             self.memberButton.hide()
