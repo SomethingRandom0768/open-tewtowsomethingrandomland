@@ -2750,9 +2750,9 @@ class ToonDNA(AvatarDNA.AvatarDNA):
         return type
 
     def getAnimal(self):
-        if self.head[0] == 'd':
+        if self.head[0] == 'd' and (self.head[0]+self.head[1] != 'de'):
             return 'dog'
-        elif self.head[0] == 'c':
+        elif self.head[0] == 'c' and (self.head[0]+self.head[1]) != 'cr':
             return 'cat'
         elif self.head[0] == 'm':
             return 'mouse'
@@ -2768,6 +2768,10 @@ class ToonDNA(AvatarDNA.AvatarDNA):
             return 'bear'
         elif self.head[0] == 's':
             return 'pig'
+        elif self.head[0] + self.head[1] == 'cr':
+            return 'crocodile'
+        elif self.head[0] + self.head[1] == 'de':
+            return 'deer'
         else:
             notify.error('unknown headStyle: ', self.head[0])
 
