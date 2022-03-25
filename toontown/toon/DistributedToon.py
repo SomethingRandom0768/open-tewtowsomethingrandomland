@@ -300,14 +300,11 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setShoes(self, idx, textureIdx, colorIdx):
         Toon.Toon.setShoes(self, idx, textureIdx, colorIdx)
 
-    def setGM(self, type):
-        wasGM = self._isGM
-        self._isGM = type != 0
-        self._gmType = None
-        if self._isGM:
+    def setGM(self, type):        
+        self._isGM = type != 0 # If it's 0, then it doesn't work.
+        if self.isGM:
             self._gmType = type - 1
-        if self._isGM != wasGM:
-            self._handleGMName()
+        self._handleGMName()
         return
 
     def setExperience(self, experience):
@@ -2528,10 +2525,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         self._handleGMName()
 
     def _handleGMName(self):
-        name = self.name
-        self.setDisplayName(name)
         if self._isGM:
-            self.setNametagStyle(5)
             self.setGMIcon(self._gmType)
             self.gmToonLockStyle = True
         else:
@@ -2553,18 +2547,22 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
             '**/*geo_featuredToon*') # Featured Toon
         )
 
-        modelName, searchString = iconInfo[0], iconInfo[1][gmType]
-        icons = loader.loadModel(modelName)
-        self.gmIcon = icons.find(searchString)
-        self.gmIcon.setScale(4)
-        self.gmIcon.reparentTo(self.nametag.getNameIcon())
-        self.setTrophyScore(self.trophyScore)
-        self.gmIcon.setZ(-2.5)
-        self.gmIcon.setY(0.0)
-        self.gmIcon.setColor(Vec4(1.0, 1.0, 1.0, 1.0))
-        self.gmIcon.setTransparency(1)
-        self.gmIconInterval = LerpHprInterval(self.gmIcon, 3.0, Point3(0, 0, 0), Point3(-360, 0, 0))
-        self.gmIconInterval.loop()
+        try:
+            modelName, searchString = iconInfo[0], iconInfo[1][gmType]
+            icons = loader.loadModel(modelName)
+            self.gmIcon = icons.find(searchString)
+            self.gmIcon.setScale(4)
+            self.gmIcon.reparentTo(self.nametag.getNameIcon())
+            self.setTrophyScore(self.trophyScore)
+            self.gmIcon.setZ(-2.5)
+            self.gmIcon.setY(0.0)
+            self.gmIcon.setColor(Vec4(1.0, 1.0, 1.0, 1.0))
+            self.gmIcon.setTransparency(1)
+            self.gmIconInterval = LerpHprInterval(self.gmIcon, 3.0, Point3(0, 0, 0), Point3(-360, 0, 0))
+            self.gmIconInterval.loop()
+        except:
+            print(f"GM Icon will crash due to the type of GM chosen.")
+            pass
 
     def setGMPartyIcon(self):
         gmType = self._gmType
