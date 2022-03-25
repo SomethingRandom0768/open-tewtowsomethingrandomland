@@ -2544,16 +2544,19 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
             return
         if not gmType:
             gmType = self._gmType
-        iconInfo = (('phase_3.5/models/gui/tt_m_gui_gm_toontroop_whistle', '**/*whistleIcon*', 4),
-         ('phase_3.5/models/gui/tt_m_gui_gm_toontroop_whistle', '**/*whistleIcon*', 4),
-         ('phase_3.5/models/gui/tt_m_gui_gm_toonResistance_fist', '**/*fistIcon*', 4),
-         ('phase_3.5/models/gui/tt_m_gui_gm_toontroop_getConnected', '**/*whistleIcon*', 4))
-        if gmType > len(iconInfo) - 1:
-            return
-        modelName, searchString, scale = iconInfo[gmType]
+
+        iconInfo = (
+            'phase_3.5/models/gui/ttr_m_gui_gm_badge.bam', 
+            ('**/*geo_toonTrooper*', # Toon Trooper
+            '**/*geo_staffMember*', # Staff Member
+            '**/*geo_toonResistance*', # Resistance Ranger 
+            '**/*geo_featuredToon*') # Featured Toon
+        )
+
+        modelName, searchString = iconInfo[0], iconInfo[1][gmType]
         icons = loader.loadModel(modelName)
         self.gmIcon = icons.find(searchString)
-        self.gmIcon.setScale(scale)
+        self.gmIcon.setScale(4)
         self.gmIcon.reparentTo(self.nametag.getNameIcon())
         self.setTrophyScore(self.trophyScore)
         self.gmIcon.setZ(-2.5)
