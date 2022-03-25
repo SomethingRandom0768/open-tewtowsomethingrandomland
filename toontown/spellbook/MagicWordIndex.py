@@ -21,6 +21,9 @@ from otp.otpbase import OTPGlobals
 
 from . import MagicWordConfig
 import time, random, re, json
+from toontown.coghq import CogDisguiseGlobals
+from toontown.shtiker import CogPageGlobals
+from toontown.suit import SuitDNA
 
 magicWordIndex = collections.OrderedDict()
 
@@ -272,6 +275,20 @@ class MaxToon(MagicWord):
 
         toon.restockAllCogSummons()
         toon.b_setPinkSlips(255)
+        toon.b_setCogParts([
+            CogDisguiseGlobals.PartsPerSuitBitmasks[0],
+            CogDisguiseGlobals.PartsPerSuitBitmasks[1],
+            CogDisguiseGlobals.PartsPerSuitBitmasks[2],
+            CogDisguiseGlobals.PartsPerSuitBitmasks[3],
+        ])
+        toon.b_setCogLevels([ToontownGlobals.MaxCogSuitLevel] * 4 + [0])
+        toon.b_setCogTypes([7] * 4 + [0])
+
+        toon.b_setCogCount(list(CogPageGlobals.COG_QUOTAS[1]) * 4)
+        cogStatus = [CogPageGlobals.COG_COMPLETE2] * SuitDNA.suitsPerDept
+        toon.b_setCogStatus(cogStatus * 4)
+        toon.b_setCogRadar([1] * 4)
+        toon.b_setBuildingRadar([1] * 4)
 
         toon.b_setMaxMoney(250)
         toon.b_setMoney(toon.maxMoney)
@@ -289,6 +306,18 @@ class returnDNA(MagicWord):
         print(f"Toon DNA: {toon.getStyle()} ")
         print(f"Toon DNA String: {toon.getDNAString()} ")
         return "Toon's DNA has been returned"
+
+class toggleGM(MagicWord):
+    aliases = ['gm']
+    desc = "Provides the Toon with a GM Icon of their choosing."
+    execLocation = MagicWordConfig.EXEC_LOC_SERVER
+    accessLevel = 'ADMIN'
+    arguments = [('gmType', int, True)]
+
+    def handleWord(self, invoker, avId, toon, *args):
+        gmType = args[0]
+        toon.b_setGM(gmType)
+        return f"Toon has been given the {gmType} icon."
 
 # Instantiate all classes defined here to register them.
 # A bit hacky, but better than the old system
